@@ -285,10 +285,35 @@ mount --mkdir -o noatime,compress-force=zstd:3,ssd,space_cache=v2,subvol=@snapsh
 
 swapon $SWAP_PARTITION
 
-mount --mkdir $EFI_PARTITION /mnt/boot/efi
+mount --mkdir $EFI_PARTITION /mnt/boot/EFI
 
 print_color "33" "Installing base system..."
-BASE_PACKAGES=(base base-devel "$KERNEL" "$KERNEL_HEADERS" linux-firmware sof-firmware networkmanager grub efibootmgr os-prober micro git wget bluez pipewire alacritty)
+
+# Choose terminal emulator
+print_color "36" "Please select a terminal emulator to install:"
+echo "1) Alacritty"
+echo "2) Kitty"
+echo "3) Custom"
+echo "4) None"
+while true; do
+    read -p "Enter your choice [1-4]: " terminal_choice
+    case $terminal_choice in
+        1) TERMINAL="alacritty"; break;;
+        2) TERMINAL="kitty"; break;;
+        3) 
+            read -p "Enter the name of the terminal package you want to install: " TERMINAL
+            break;;
+        4) TERMINAL=""; break;;
+        *) echo "Invalid choice. Please try again.";;
+    esac
+done
+
+# Define base packages with conditional terminal
+BASE_PACKAGES=(base base-devel "$KERNEL" "$KERNEL_HEADERS" linux-firmware sof-firmware networkmanager grub efibootmgr os-prober micro git wget bluez pipewire)
+if [[ -n "$TERMINAL" ]]; then
+    BASE_PACKAGES+=("$TERMINAL")
+fi
+
 install_base_packages "${BASE_PACKAGES[@]}"
 
 print_color "33" "Generating fstab..."
@@ -323,18 +348,22 @@ print_color "32" "User $NEW_USER has been created and added to the wheel group."
 
 print_color "32" "Configuring sudoers..."
 # Configure sudoers
-arch-chroot /mnt sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-arch-chroot /mnt sed -i 's/^# %wheel ALL=(ALL:ALL) NOPASSWD: ALL/%wheel ALL=(ALL:ALL) NOPASSWD: ALL/' /etc/sudoers
+arch-chroot /mnt sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+arch-chroot /mnt sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
+# Set read permissions for pacman.conf
+print_color "32" "Setting read permissions for pacman.conf..."
+arch-chroot /mnt chmod 644 /etc/pacman.conf
 
 # Install GRUB
 install_grub() {
     print_color "32" "Installing GRUB for EFI..."
-    if ! mountpoint -q /mnt/boot/efi; then
-        mkdir -p /mnt/boot/efi
-        mount $EFI_PARTITION /mnt/boot/efi
+    if ! mountpoint -q /mnt/boot/EFI; then
+        mkdir -p /mnt/boot/EFI
+        mount $EFI_PARTITION /mnt/boot/EFI
     fi
     install_packages efibootmgr
-    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id="$LABEL"
+    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id="$LABEL"
 
     install_packages os-prober
     echo "Enabling os-prober in GRUB configuration..."
@@ -440,4 +469,4 @@ arch-chroot /mnt /bin/bash -c "systemctl enable fstrim.timer"
 
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
-sync
+syn
