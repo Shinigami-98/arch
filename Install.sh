@@ -288,7 +288,7 @@ swapon $SWAP_PARTITION
 mount --mkdir $EFI_PARTITION /mnt/boot/efi
 
 print_color "33" "Installing base system..."
-BASE_PACKAGES=(base base-devel "$KERNEL" "$KERNEL_HEADERS" linux-firmware sof-firmware networkmanager grub efibootmgr os-prober micro git wget bluez pipewire kitty)
+BASE_PACKAGES=(base base-devel "$KERNEL" "$KERNEL_HEADERS" linux-firmware sof-firmware networkmanager grub efibootmgr os-prober micro git wget bluez pipewire alacritty)
 install_base_packages "${BASE_PACKAGES[@]}"
 
 print_color "33" "Generating fstab..."
@@ -415,7 +415,7 @@ if [[ $install_sddm =~ ^[Yy]$ ]]; then
 
     if [[ $install_plasma =~ ^[Yy]$ ]]; then
         print_color "32" "Installing Plasma..."
-        PLASMA_PACKAGES=(plasma-desktop sddm-kcm plymouth-kcm)
+        PLASMA_PACKAGES=(plasma-desktop sddm-kcm)
         install_packages "${PLASMA_PACKAGES[@]}"
 
         print_color "32" "Installing KDE Control Modules..."
@@ -439,7 +439,5 @@ arch-chroot /mnt /bin/bash -c "systemctl enable bluetooth"
 arch-chroot /mnt /bin/bash -c "systemctl enable fstrim.timer"
 
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-
-arch-chroot /mnt chmod 555 /etc/pacman.conf
 
 sync
