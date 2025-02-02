@@ -469,4 +469,4 @@ arch-chroot /mnt /bin/bash -c "systemctl enable fstrim.timer"
 
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
-syn
+sync
