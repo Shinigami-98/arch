@@ -270,9 +270,9 @@ mkfs.ext4 $HOME_PARTITION
 
 # Mount the partitions and create subvolumes
 print_color "33" "Mounting partitions..."
-mount $ROOT_PARTITION /mnt
+mount -o noatime,data=writeback,commit=100 $ROOT_PARTITION /mnt
 mkdir -p /mnt/home
-mount $HOME_PARTITION /mnt/home
+mount -o noatime,data=writeback,commit=100 $HOME_PARTITION /mnt/home
 mkdir -p /mnt/boot/EFI
 mount $EFI_PARTITION /mnt/boot/EFI
 
