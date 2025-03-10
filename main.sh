@@ -95,5 +95,9 @@ arch-chroot /mnt /bin/bash -c "systemctl enable bluetooth"
 arch-chroot /mnt /bin/bash -c "systemctl enable fstrim.timer"
 
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+
+print_color "32" "Installation Complete.............."
 
 sync
