@@ -2,8 +2,6 @@
 set -e
 
 echo "Starting bootstrap process for Arch Linux installation scripts..."
-chmod +x "$script"
-
 source variable.file
 source env.sh
 source partition.sh
