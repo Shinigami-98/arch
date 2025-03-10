@@ -19,12 +19,12 @@ fi
 
 # Mount the partitions
 print_color "33" "Mounting partitions..."
-mount -o noatime,data=writeback,commit=100 $ROOT_PARTITION /mnt
+mount $ROOT_PARTITION /mnt
 
 # Mount home partition or create home directory
 if [[ $SEPARATE_HOME = true ]]; then
     mkdir -p /mnt/home
-    mount -o noatime,data=writeback,commit=100 $HOME_PARTITION /mnt/home
+    mount /mnt/home
 else
     print_color "33" "Creating /home directory on root partition..."
     mkdir -p /mnt/home
