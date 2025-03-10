@@ -24,7 +24,7 @@ mount $ROOT_PARTITION /mnt
 # Mount home partition or create home directory
 if [[ $SEPARATE_HOME = true ]]; then
     mkdir -p /mnt/home
-    mount /mnt/home
+    mount $HOME_PARTITION /mnt/home
 else
     print_color "33" "Creating /home directory on root partition..."
     mkdir -p /mnt/home
