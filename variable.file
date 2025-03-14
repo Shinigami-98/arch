@@ -1,0 +1,16 @@
+NVIDIA_MODULES=("nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm")
+NVIDIA_PACKAGES=(nvidia-dkms libglvnd opencl-nvidia nvidia-utils lib32-libglvnd lib32-opencl-nvidia lib32-nvidia-utils nvidia-settings)
+
+# Configuration variables
+COUNTRY="Germany"
+MKINITCPIO_CONF="/etc/mkinitcpio.conf"
+GRUB_CONF="/etc/default/grub"
+GRUB_BACKUP_CONF="/etc/default/grub.bak"
+
+BASE_PACKAGES=(base base-devel linux-firmware sof-firmware networkmanager)
+FONT_PACKAGES=(ttf-liberation ttf-dejavu noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-roboto ttf-roboto-mono ttf-droid ttf-opensans ttf-hack ttf-fira-code ttf-fira-mono ttf-cascadia-code adobe-source-code-pro-fonts adobe-source-sans-fonts adobe-source-serif-fonts)
+KDE_PACKAGES=(fastfetch discover dolphin ark bluez firewalld kde-gtk-config breeze-gtk kdeconnect kdeplasma-addons bluedevil kgamma kscreen plasma-firewall plasma-browser-integration plasma-nm plasma-pa plasma-sdk plasma-systemmonitor power-profiles-daemon kwallet-pam)
+PLASMA_PACKAGES=(plasma-desktop sddm-kcm)
+XORG_PACKAGES=(xorg-server xorg-xinit xorg-xrandr xorg-xsetroot)
+ADDITIONAL_PACKAGES=(git wget bluez pipewire)
+HYPR_PACKAGES=(hyprland hyprpaper hyprpicker hypridle hyprlock xdg-desktop-portal-hyprland hyprsunset hyprpolkitagent hyprland-qt-support rofi-wayland waybar swaync thunar cliphist xdg-desktop-portal-gtk pipewire wireplumber network-manager-applet blueberry)
