@@ -29,7 +29,7 @@ This project provides a collection of shell scripts designed to automate the Arc
 ## Usage
 
 1. Boot into the Arch Linux live environment
-2. Clone this repository: `git clone https://github.com/shinigami/arch`
+2. Clone this repository: `git clone https://github.com/shinigami-98/arch`
 3. Navigate to the project directory: `cd arch`
 4. Make the main script executable: `chmod +x main.sh`
 5. Run the installation script: `./main.sh`
