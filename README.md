@@ -29,8 +29,8 @@ This project provides a collection of shell scripts designed to automate the Arc
 ## Usage
 
 1. Boot into the Arch Linux live environment
-2. Clone this repository: `git clone https://github.com/yourusername/arch-install-scripts.git`
-3. Navigate to the project directory: `cd arch-install-scripts`
+2. Clone this repository: `git clone https://github.com/shinigami/arch`
+3. Navigate to the project directory: `cd arch`
 4. Make the main script executable: `chmod +x main.sh`
 5. Run the installation script: `./main.sh`
 6. Follow the interactive prompts to customize your installation
